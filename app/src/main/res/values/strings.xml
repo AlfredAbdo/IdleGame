@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Idle Game</string>
+    <string name="retry">Retry</string>
+    <string name="home">Home</string>
+    <string name="game">Game</string>
+    <string name="settings">Settings</string>
+    <string name="back">Back</string>
+    <string name="delete">Delete</string>
+    <string name="delete_your_save_">DELETE YOUR SAVE!</string>
+    <string name="warning_">WARNING!!!</string>
+    <string name="delete_confirmation__message">Are you sure you want to delete your whole progress? You cannot restore it.</string>
+    <string name="cancel">Cancel</string>
+    <string name="deleting_">Deleting…</string>
+    <string name="deleting__message">It\'s too late to cry now. Your save is being deleted, and should have been deleted by the time you read this message.</string>
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <string name="next_achievement_">Next Achievement:</string>
+    <string name="achievement_obtained">Achievement obtained:</string>
+</resources>
