@@ -1,5 +1,5 @@
 [versions]
-agp = "9.3.0"
+agp = "9.3.1"
 kotlin = "2.4.10"
 desugarJDK = "2.1.5"
 
@@ -18,13 +18,13 @@ composeBom = "2026.06.01"
 exifinterface = "1.4.2"
 datastore = "1.2.1"
 webkit = "1.16.0"
-nav3Core = "1.1.4"
+nav3Core = "1.1.5"
 work = "2.11.2"
 
 coil = "3.5.0"
 
 okhttp = "5.4.0"
-ktor = "3.5.1"
+ktor = "3.5.2"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
