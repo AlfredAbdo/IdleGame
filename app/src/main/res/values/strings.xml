@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Idle Game</string>
     <string name="retry">Retry</string>
+    <string name="login">Login</string>
     <string name="home">Home</string>
     <string name="game">Game</string>
     <string name="settings">Settings</string>
@@ -16,4 +17,6 @@
     <string name="save">Save</string>
     <string name="next_achievement_">Next Achievement:</string>
     <string name="achievement_obtained">Achievement obtained:</string>
+    <string name="username">Username</string>
+    <string name="use_local_save">Use Local Save</string>
 </resources>

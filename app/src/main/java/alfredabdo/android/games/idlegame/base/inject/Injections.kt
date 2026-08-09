@@ -75,7 +75,7 @@ object Injections {
     }
 
     val apiClient: ApiClient by lazy {
-        ApiClient(ktorHTTPClient(apiJson))
+        ApiClient(ktorHTTPClient(apiJson), apiJson)
     }
 
     val exceptionConverter: AppExceptionConverter by lazy {
@@ -83,7 +83,7 @@ object Injections {
     }
 
     val gameRepo: GameRepository by lazy {
-        GameRepository(sessionDataStore)
+        GameRepository(sessionDataStore, apiClient)
     }
 
     //...

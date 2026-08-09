@@ -7,11 +7,23 @@ import alfredabdo.android.games.idlegame.features.game.data.GetNextAchievementUs
 import alfredabdo.android.games.idlegame.features.game.data.SaveGameStateUseCase
 import alfredabdo.android.games.idlegame.features.home.HomeViewModel
 import alfredabdo.android.games.idlegame.features.home.data.DeleteSaveUseCase
+import alfredabdo.android.games.idlegame.features.login.LoginViewModel
+import alfredabdo.android.games.idlegame.features.login.data.LoginUseCase
 import alfredabdo.android.games.idlegame.util.game.GameCalculator
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 
 fun appViewModelFactory() = viewModelFactory {
+    initializer {
+        val sessionDataStore = Injections.sessionDataStore
+        val gameRepo = Injections.gameRepo
+        LoginViewModel(
+            sessionDataStore,
+            gameRepo,
+            LoginUseCase(gameRepo),
+        )
+    }
+
     initializer {
         val gameRepo = Injections.gameRepo
         HomeViewModel(

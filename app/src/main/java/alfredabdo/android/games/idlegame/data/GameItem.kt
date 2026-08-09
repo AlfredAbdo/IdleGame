@@ -1,6 +1,8 @@
 package alfredabdo.android.games.idlegame.data
 
+import alfredabdo.android.games.idlegame.data.api.GameItemDTO
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 data class GameItem(
     val id: String,
@@ -24,4 +26,22 @@ data class GameItem(
         val fillRateMultiplier: Double,
         val gainMultiplier: Double,
     )
+
+
+    companion object {
+        fun fromDTO(dto: GameItemDTO) = GameItem(
+            dto.id.toString(),
+            dto.title.orEmpty(),
+            dto.description.orEmpty(),
+            dto.baseFillRateMs?.milliseconds ?: 0.milliseconds,
+            dto.baseGain ?: 0.0,
+            UpgradeMultipliers(
+                dto.upgradeMultipliers?.costMultiplier ?: 0.0,
+                dto.upgradeMultipliers?.fillRateMultiplier ?: 0.0,
+                dto.upgradeMultipliers?.gainMultiplier ?: 0.0,
+            ),
+            dto.unlockAmount,
+            dto.baseUpgradeCost ?: 0.0,
+        )
+    }
 }

@@ -52,12 +52,16 @@ abstract class BaseMVIViewModel<State : Any, Action : Any, Event : Any> : BaseVi
     }
 
     protected fun sendEvent(event: Event) = viewModelScope.launch {
-        _events.send(event)
+        sendEventAndSuspend(event)
     }
 
+    protected suspend fun sendEventAndSuspend(event: Event) = _events.send(event)
+
     protected fun sendTempEvent(event: Event) = viewModelScope.launch {
-        _tempEvents.emit(event)
+        sendTempEventAndSuspend(event)
     }
+
+    protected suspend fun sendTempEventAndSuspend(event: Event) = _tempEvents.emit(event)
 
     protected open fun updateUIState(provider: (State) -> State) {
         _uiState.update(provider)

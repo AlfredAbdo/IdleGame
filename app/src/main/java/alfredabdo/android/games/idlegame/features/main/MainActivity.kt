@@ -1,5 +1,6 @@
 package alfredabdo.android.games.idlegame.features.main
 
+import alfredabdo.android.games.idlegame.BuildConfig
 import alfredabdo.android.games.idlegame.base.BaseActivity
 import alfredabdo.android.games.idlegame.ui.theme.AppTheme
 import android.os.Bundle
@@ -13,7 +14,10 @@ class MainActivity : BaseActivity() {
         setContent {
             AppTheme {
                 ProvidesDefaultAppViewModelFactory {
-                    MainPage()
+                    MainPage(
+                        redirectToHome = !BuildConfig.SHOULD_CONNECT_TO_SERVER,
+                        onQuitApp = ::finishAffinity,
+                    )
                 }
             }
         }

@@ -4,6 +4,7 @@ import alfredabdo.android.games.idlegame.R
 import alfredabdo.android.games.idlegame.features.MainRoute
 import alfredabdo.android.games.idlegame.features.game.GamePage
 import alfredabdo.android.games.idlegame.features.home.HomePage
+import alfredabdo.android.games.idlegame.features.login.LoginPage
 import alfredabdo.android.games.idlegame.features.settings.SettingsPage
 import alfredabdo.android.games.idlegame.ui.bars.MainTopAppBar
 import alfredabdo.android.games.idlegame.ui.bars.NavBackIcon
@@ -29,16 +30,20 @@ import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.ui.NavDisplay
 
 @Composable
-fun MainPage() {
-    val backStack = rememberNavBackStack(MainRoute.Home)
+fun MainPage(
+    redirectToHome: Boolean,
+    onQuitApp: () -> Unit,
+) {
+    val backStack = rememberNavBackStack(if (redirectToHome) MainRoute.Home else MainRoute.Login)
     val dialogStrategy = remember { DialogSceneStrategy<NavKey>() }
     val bottomSheetStrategy = remember { BottomSheetSceneStrategy<NavKey>() }
 
     val currentRoute: MainRoute by remember {
         derivedStateOf {
-            backStack.lastOrNull() as? MainRoute ?: MainRoute.Home
+            backStack.lastOrNull() as? MainRoute ?: (if (redirectToHome) MainRoute.Home else MainRoute.Login)
         }
     }
+
 
     Scaffold(
         topBar = {
@@ -47,6 +52,7 @@ fun MainPage() {
                 title = {
                     Text(
                         when (currentRoute) {
+                            is MainRoute.Login -> stringResource(R.string.login)
                             is MainRoute.Home -> stringResource(R.string.home)
                             is MainRoute.Game -> stringResource(R.string.game)
                             is MainRoute.Settings -> stringResource(R.string.settings)
@@ -80,6 +86,15 @@ fun MainPage() {
                 dialogStrategy,
             ),
             entryProvider = entryProvider {
+                entry<MainRoute.Login> {
+                    LoginPage(
+                        onGoToHome = {
+                            backStack.removeLastOrNull()
+                            backStack += MainRoute.Home
+                        },
+                    )
+                }
+
                 entry<MainRoute.Home> {
                     HomePage(
                         onGoToGame = {
@@ -88,6 +103,7 @@ fun MainPage() {
                         onGoToSettings = {
                             backStack += MainRoute.Settings
                         },
+                        onQuitApp = onQuitApp,
                     )
                 }
 

@@ -26,7 +26,7 @@ fun ktorHTTPClient(
                 listOf(
                     ConnectionSpec.MODERN_TLS,
 //                    ConnectionSpec.COMPATIBLE_TLS,
-//                    ConnectionSpec.CLEARTEXT,
+                    ConnectionSpec.CLEARTEXT,
                 )
             )
         }

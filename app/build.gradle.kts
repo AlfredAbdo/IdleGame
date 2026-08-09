@@ -25,6 +25,9 @@ android {
         }*/
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("boolean", "SHOULD_CONNECT_TO_SERVER", "true")
+        buildConfigField("String", "API_BASE_URL", "\"http://10.0.2.2:8080/api/\"")
     }
 
     buildTypes {
@@ -41,22 +44,6 @@ android {
         buildConfig = true
         compose = true
         resValues = true
-    }
-
-    productFlavors {
-        flavorDimensions += listOf("api")
-
-        register("uat") {
-            dimension = "api"
-
-            buildConfigField("String", "API_BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
-        }
-
-        register("prod") {
-            dimension = "api"
-
-            buildConfigField("String", "API_BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
-        }
     }
 }
 

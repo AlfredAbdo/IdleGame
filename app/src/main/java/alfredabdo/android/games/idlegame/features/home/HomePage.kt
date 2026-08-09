@@ -18,6 +18,7 @@ fun HomePage(
     viewModel: HomeViewModel = appViewModel(),
     onGoToGame: () -> Unit,
     onGoToSettings: () -> Unit,
+    onQuitApp: () -> Unit,
 ) {
     val isConfirmingDelete by viewModel.isConfirmingDelete.collectAsStateWithLifecycle()
     val isDeleting by viewModel.isDeleting.collectAsStateWithLifecycle()
@@ -56,7 +57,10 @@ fun HomePage(
     }
     if (isDeleting) {
         AlertDialog(
-            onDismissRequest = viewModel::hideIsDeletingAlert,
+            onDismissRequest = {
+                viewModel.hideIsDeletingAlert()
+                onQuitApp()
+            },
             title = {
                 Text(stringResource(R.string.deleting_))
             },
@@ -64,7 +68,10 @@ fun HomePage(
                 Text(stringResource(R.string.deleting__message))
             },
             confirmButton = {
-                TextButton(viewModel::hideIsDeletingAlert) {
+                TextButton({
+                    viewModel.hideIsDeletingAlert()
+                    onQuitApp()
+                }) {
                     Text(stringResource(R.string.ok))
                 }
             },

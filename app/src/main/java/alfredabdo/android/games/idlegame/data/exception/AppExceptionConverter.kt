@@ -12,7 +12,7 @@ class AppExceptionConverter(
         return when (throwable) {
             is AppException -> throwable
 
-            //...
+            //TODO handle execption from ApiClient
 
             else -> AppException(
                 AppException.Codes.UNKNOWN,
@@ -21,6 +21,4 @@ class AppExceptionConverter(
             )
         }
     }
-
-    //...
 }

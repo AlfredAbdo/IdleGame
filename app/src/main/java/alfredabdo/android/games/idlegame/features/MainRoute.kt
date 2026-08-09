@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 sealed interface MainRoute : NavKey {
 
     @Serializable
+    data object Login : MainRoute
+
+    @Serializable
     data object Home : MainRoute
 
     @Serializable
