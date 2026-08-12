@@ -26,7 +26,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("boolean", "SHOULD_CONNECT_TO_SERVER", "true")
+        buildConfigField("boolean", "SHOULD_CONNECT_TO_SERVER", "false")
         buildConfigField("String", "API_BASE_URL", "\"http://10.0.2.2:8080/api/\"")
     }
 
