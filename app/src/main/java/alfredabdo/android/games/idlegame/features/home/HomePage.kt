@@ -2,11 +2,11 @@ package alfredabdo.android.games.idlegame.features.home
 
 import alfredabdo.android.games.idlegame.R
 import alfredabdo.android.games.idlegame.features.home.ui.HomeUI
+import alfredabdo.android.games.idlegame.ui.dialog.MainAlertDialog
+import alfredabdo.android.games.idlegame.ui.dialog.MainAlertDialogDefaults
 import alfredabdo.android.games.idlegame.util.viewmodel.appViewModel
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -33,42 +33,42 @@ fun HomePage(
 
 
     if (isConfirmingDelete) {
-        AlertDialog(
+        MainAlertDialog(
             onDismissRequest = viewModel::hideDeleteConfirmation,
             title = {
-                Text(stringResource(R.string.warning_))
+                MainAlertDialogDefaults.TitleText(stringResource(R.string.warning_))
             },
             text = {
-                Text(stringResource(R.string.delete_confirmation__message))
+                MainAlertDialogDefaults.BodyText(stringResource(R.string.delete_confirmation__message))
             },
             confirmButton = {
-                TextButton({
+                MainAlertDialogDefaults.DismissButton({
                     viewModel.confirmDelete()
                 }) {
                     Text(stringResource(R.string.delete))
                 }
             },
             dismissButton = {
-                TextButton(viewModel::hideDeleteConfirmation) {
+                MainAlertDialogDefaults.DismissButton(viewModel::hideDeleteConfirmation) {
                     Text(stringResource(R.string.cancel))
                 }
             },
         )
     }
     if (isDeleting) {
-        AlertDialog(
+        MainAlertDialog(
             onDismissRequest = {
                 viewModel.hideIsDeletingAlert()
                 onQuitApp()
             },
             title = {
-                Text(stringResource(R.string.deleting_))
+                MainAlertDialogDefaults.TitleText(stringResource(R.string.deleting_))
             },
             text = {
-                Text(stringResource(R.string.deleting__message))
+                MainAlertDialogDefaults.BodyText(stringResource(R.string.deleting__message))
             },
             confirmButton = {
-                TextButton({
+                MainAlertDialogDefaults.DismissButton({
                     viewModel.hideIsDeletingAlert()
                     onQuitApp()
                 }) {

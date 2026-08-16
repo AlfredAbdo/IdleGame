@@ -1,20 +1,20 @@
 package alfredabdo.android.games.idlegame.features.login
 
 import alfredabdo.android.games.idlegame.features.login.ui.LoginUI
+import alfredabdo.android.games.idlegame.ui.dialog.MainAlertDialog
+import alfredabdo.android.games.idlegame.ui.dialog.MainAlertDialogDefaults
 import alfredabdo.android.games.idlegame.ui.state.LoadingIndicator
 import alfredabdo.android.games.idlegame.ui.state.UIState
 import alfredabdo.android.games.idlegame.util.viewmodel.appViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -118,10 +118,10 @@ private fun ErrorDialog(
     message: String,
     modifier: Modifier = Modifier,
 ) {
-    AlertDialog(
+    MainAlertDialog(
         onDismissRequest,
-        confirmButton = { TextButton(onClick = onDismissRequest) { Text("OK") } },
+        confirmButton = { MainAlertDialogDefaults.DismissButton(onClick = onDismissRequest) { Text("OK") } },
         modifier,
-        text = { Text(message) }
+        text = { MainAlertDialogDefaults.BodyText(message) }
     )
 }

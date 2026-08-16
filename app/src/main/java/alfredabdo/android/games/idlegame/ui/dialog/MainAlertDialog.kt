@@ -194,10 +194,10 @@ object MainAlertDialogDefaults {
         modifier: Modifier = Modifier,
         enabled: Boolean = true,
         shape: Shape = ButtonDefaults.textShape,
-        colors: ButtonColors = ButtonDefaults.textButtonColors(),
+        colors: ButtonColors = ButtonDefaults.buttonColors(),
         elevation: ButtonElevation? = null,
         border: BorderStroke? = null,
-        contentPadding: PaddingValues = ButtonDefaults.TextButtonContentPadding,
+        contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
         interactionSource: MutableInteractionSource? = null,
         content: @Composable RowScope.() -> Unit,
     ) {
