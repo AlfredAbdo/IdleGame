@@ -167,15 +167,14 @@ class GameViewModel(
 
 
     private suspend fun completeActiveAchievement() {
-        val gameState = _state.value
-        val currentAchievement = gameState.activeAchievement
+        val currentAchievement = _state.value.activeAchievement
 
         _showAchievementState.value = currentAchievement
         delay(3.seconds) //show achievement done
         _showAchievementState.value = null
 
         val achievement = getNextAchievementUseCase(currentAchievement?.id)
-        val newGameState = gameState.copy(activeAchievement = achievement)
+        val newGameState = _state.value.copy(activeAchievement = achievement)
         _state.update { newGameState }
     }
 }
