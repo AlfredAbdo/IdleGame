@@ -10,6 +10,7 @@ import alfredabdo.android.games.idlegame.data.api.GameItemStateDTO
 import alfredabdo.android.games.idlegame.data.session.Session
 import alfredabdo.android.games.idlegame.data.session.SessionDataStore
 import alfredabdo.android.games.idlegame.ui.animation.gameInfiniteAnimationThreshold
+import alfredabdo.android.games.idlegame.util.game.GameFormatter
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
@@ -18,6 +19,7 @@ import kotlin.time.Duration.Companion.seconds
 class GameRepository(
     private val sessionDataStore: SessionDataStore,
     private val apiClient: ApiClient,
+    private val formatter: GameFormatter,
 ) {
 
     companion object {
@@ -301,7 +303,7 @@ class GameRepository(
             },
             GameAchievement(
                 "3",
-                "Get any item duration to $gameInfiniteAnimationThreshold or below",
+                "Get any item duration to ${formatter.formatDuration(gameInfiniteAnimationThreshold)} or below",
                 "NOT THE EYES!",
             ) { _, itemStates ->
                 itemStates.entries.any {
