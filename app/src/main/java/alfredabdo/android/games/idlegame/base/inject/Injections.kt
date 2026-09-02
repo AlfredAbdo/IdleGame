@@ -7,7 +7,6 @@ import alfredabdo.android.games.idlegame.data.exception.AppExceptionConverter
 import alfredabdo.android.games.idlegame.data.repo.GameRepository
 import alfredabdo.android.games.idlegame.data.session.Session
 import alfredabdo.android.games.idlegame.data.session.SessionDataStore
-import alfredabdo.android.games.idlegame.util.game.GameFormatter
 import android.app.Application
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.DataStoreFactory
@@ -84,7 +83,7 @@ object Injections {
     }
 
     val gameRepo: GameRepository by lazy {
-        GameRepository(sessionDataStore, apiClient, GameFormatter)
+        GameRepository(sessionDataStore, apiClient)
     }
 
     //...
