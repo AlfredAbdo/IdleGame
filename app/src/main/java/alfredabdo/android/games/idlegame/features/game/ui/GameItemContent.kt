@@ -114,6 +114,7 @@ fun GameItemContent(
         Box(
             modifier = Modifier
                 .align(Alignment.CenterVertically),
+            contentAlignment = Alignment.CenterEnd,
         ) {
             //fixme fully qualified name due to bug in Kotlin
             androidx.compose.animation.AnimatedVisibility(
