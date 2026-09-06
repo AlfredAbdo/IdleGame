@@ -1,5 +1,6 @@
 package alfredabdo.android.games.idlegame.features.settings.ui
 
+import alfredabdo.android.games.idlegame.R
 import alfredabdo.android.games.idlegame.ui.preview.AppPreview
 import alfredabdo.android.games.idlegame.ui.theme.AppTheme
 import alfredabdo.android.games.idlegame.ui.theme.LightDarkMode
@@ -18,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -31,7 +33,7 @@ fun SettingsUI(
             .verticalScroll(rememberScrollState()),
     ) {
         Text(
-            "Dark mode:",
+            stringResource(R.string.light_dark_mode__header),
             Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
         )
         Spacer(Modifier.height(8.dp))
@@ -41,21 +43,21 @@ fun SettingsUI(
                 .selectableGroup(),
         ) {
             LightDarkModeOption(
-                "System",
+                stringResource(R.string.system),
                 isSelected = lightDarkMode == LightDarkMode.SYSTEM,
                 onSelected = { onChangeLightDarkMode(LightDarkMode.SYSTEM) },
                 modifier = Modifier
                     .fillMaxWidth(),
             )
             LightDarkModeOption(
-                "Light",
+                stringResource(R.string.light),
                 isSelected = lightDarkMode == LightDarkMode.LIGHT,
                 onSelected = { onChangeLightDarkMode(LightDarkMode.LIGHT) },
                 modifier = Modifier
                     .fillMaxWidth(),
             )
             LightDarkModeOption(
-                "Dark",
+                stringResource(R.string.dark),
                 isSelected = lightDarkMode == LightDarkMode.DARK,
                 onSelected = { onChangeLightDarkMode(LightDarkMode.DARK) },
                 modifier = Modifier

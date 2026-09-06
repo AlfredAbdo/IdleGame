@@ -19,4 +19,8 @@
     <string name="achievement_obtained">Achievement obtained:</string>
     <string name="username">Username</string>
     <string name="use_local_save">Use Local Save</string>
+    <string name="light_dark_mode__header">Light Dark mode:</string>
+    <string name="system">System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 </resources>
