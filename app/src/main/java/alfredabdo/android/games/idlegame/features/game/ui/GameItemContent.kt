@@ -73,7 +73,7 @@ fun GameItemContent(
 
     val gainMessage by remember {
         derivedStateOf {
-            // Make sure to use the mutable states directly inside the derivedStateOf instead of remembered values.
+            // Make sure to use the mutable states directly inside the derivedStateOf instead of remembered calculations.
             // Values capable of having snapshots are read appropriately when the derived state is read.
             buildAnnotatedString {
                 val gainAmount = gameFormatter.formatAmount(state.gain)
