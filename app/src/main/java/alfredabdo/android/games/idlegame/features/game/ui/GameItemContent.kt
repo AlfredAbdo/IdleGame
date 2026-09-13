@@ -35,6 +35,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.remember
@@ -52,8 +53,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlin.div
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlin.times
 
 @Composable
 fun GameItemContent(
@@ -64,18 +67,33 @@ fun GameItemContent(
     onUpgrade: (item: GameItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val progress by remember(item.id, state.progress) { mutableDoubleStateOf(state.progress) }
-    val isLocked = remember(item.id, state.unlocked) { !state.unlocked }
-    val gainAmount = remember(state.gain) { gameFormatter.formatAmount(state.gain) }
     val unlockAmount = remember(item.unlockAmount) { item.unlockAmount?.let { gameFormatter.formatAmount(it) } }
     val upgradeAmount = remember(state.upgradeCost) { gameFormatter.formatAmount(state.upgradeCost) }
-    val fillRate = remember(state.fillRate) { state.fillRate }
+
+
+    val gainMessage by remember {
+        derivedStateOf {
+            // Make sure to use the mutable states directly inside the derivedStateOf instead of remembered values.
+            // Values capable of having snapshots are read appropriately when the derived state is read.
+            buildAnnotatedString {
+                val gainAmount = gameFormatter.formatAmount(state.gain)
+                val fillRateFormatted = gameFormatter.formatDuration(state.fillRate)
+
+                withStyle(SpanStyle(fontWeight = FontWeight.Normal)) {
+                    append("Gain: ")
+                }
+                append(gainAmount)
+                append(" coins each ")
+                append(fillRateFormatted)
+            }
+        }
+    }
 
     Row(
         modifier = modifier
             .gameItemBackground(
-                progress = progress,
-                shouldShowInfiniteTransition = { fillRate <= gameInfiniteAnimationThreshold },
+                progress = state.progress,
+                shouldShowInfiniteTransition = { state.fillRate <= gameInfiniteAnimationThreshold },
             )
             .padding(16.dp)
             .height(IntrinsicSize.Min)
@@ -97,14 +115,7 @@ fun GameItemContent(
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = buildAnnotatedString {
-                    withStyle(SpanStyle(fontWeight = FontWeight.Normal)) {
-                        append("Gain: ")
-                    }
-                    append(gainAmount)
-                    append(" coins each ")
-                    append(gameFormatter.formatDuration(fillRate))
-                },
+                text = gainMessage,
                 style = MaterialTheme.typography.labelLarge,
             )
         }
@@ -118,7 +129,7 @@ fun GameItemContent(
         ) {
             //fixme fully qualified name due to bug in Kotlin
             androidx.compose.animation.AnimatedVisibility(
-                visible = isLocked,
+                visible = !state.unlocked,
                 label = "GameCellPurchaseVisibility",
                 enter = fadeIn(tween(500)) + slideInVertically(
                     tween(1_000), initialOffsetY = { -it }
@@ -135,7 +146,7 @@ fun GameItemContent(
                 }
             }
             androidx.compose.animation.AnimatedVisibility(
-                visible = !isLocked,
+                visible = state.unlocked,
                 label = "GameCellUpgradeVisibility",
                 enter = fadeIn(tween(500)) + slideInVertically(
                     tween(1_000), initialOffsetY = { -it }
