@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.floor
+import kotlin.rem
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -62,8 +64,9 @@ class GameViewModel(
                 if (value.unlocked) {
                     var progress = value.progress + (diff / value.fillRate)
                     if (progress >= 1.0) {
-                        progress = 0.0
-                        coins += value.gain // gain coins!
+                        val timesCompleted = floor(progress)
+                        progress %= 1.0
+                        coins += value.gain * timesCompleted // gain coins!
                     }
                     value.progress = progress
                 }
