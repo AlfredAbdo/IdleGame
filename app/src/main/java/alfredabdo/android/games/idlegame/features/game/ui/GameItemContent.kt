@@ -37,7 +37,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +44,6 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.clipRect
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -53,10 +51,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlin.div
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
-import kotlin.times
 
 @Composable
 fun GameItemContent(
@@ -88,6 +84,7 @@ fun GameItemContent(
             }
         }
     }
+
 
     Row(
         modifier = modifier
@@ -171,7 +168,6 @@ private fun Modifier.gameItemBackground(
     progress: Double,
     shouldShowInfiniteTransition: () -> Boolean,
 ): Modifier {
-    val density = LocalDensity.current
     val brush = progressBrush
 
     return border(1.dp, brush, RoundedCornerShape(16.dp))
@@ -201,7 +197,7 @@ private fun Modifier.gameItemBackground(
                     ) {
                         drawRoundRect(
                             brush,
-                            cornerRadius = with(density) { CornerRadius(16.dp.toPx()) },
+                            cornerRadius = CornerRadius(16.dp.toPx()),
                         )
                     }
                 }
