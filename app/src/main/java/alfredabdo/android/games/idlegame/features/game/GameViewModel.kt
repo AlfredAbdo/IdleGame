@@ -81,11 +81,12 @@ class GameViewModel(
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 val gameState = _state.value.copy()
-                val coins = gameState.coins
+                var coins = gameState.coins
                 val newGameState = gameState.copy(
                     states = gameState.states.apply {
                         entries.find { it.key.id == id }?.let { (key, value) ->
                             if (key.unlockAmount == null || coins >= key.unlockAmount) {
+                                coins -= (key.unlockAmount ?: 0.0)
                                 value.unlocked = true
                             }
                         }
